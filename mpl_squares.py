@@ -9,7 +9,7 @@ squares = [1, 4, 9, 16, 25]
 
 # Style the plot 
 # plt.style.use('dark_background')
-plt.style.use('seaborn-v0_8')
+plt.style.use('seaborn-v0_8-pastel')
 
 
 # available styles:
