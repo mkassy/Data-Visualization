@@ -8,19 +8,28 @@ die_1 = Die()
 die_2 = Die()
 
 # Make some rolls, and store results in a list.
-results = []
-for roll_num in range(1000):
-    result = die_1.roll() * die_2.roll()
-    results.append(result)
+# List comprehension version:
+results = [die_1.roll() * die_2.roll() for roll_num in range(1000)]
+# or for loop version:
+# results = []
+# for roll_num in range(1000):
+#     result = die_1.roll() * die_2.roll()
+#     results.append(result)
 
 # print(results)
 
 # Analyze the results.
-frequencies = []
+
+# List comprehension version:
 max_result = die_1.num_sides * die_2.num_sides
-for value in range(1, max_result+1):
-    frequency = results.count(value)
-    frequencies.append(frequency)
+frequencies = [results.count(value) for value in range(1, max_result+1)]
+
+# for loop version:
+# frequencies = []
+# max_result = die_1.num_sides * die_2.num_sides
+# for value in range(1, max_result+1):
+#     frequency = results.count(value)
+#     frequencies.append(frequency)
 
 # print(frequencies)
 
