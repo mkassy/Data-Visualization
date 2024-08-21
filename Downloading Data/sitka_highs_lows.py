@@ -28,8 +28,12 @@ with open(filename) as f:
 # Plot the high and low temperatures.
 plt.style.use('seaborn-v0_8')
 fig, ax = plt.subplots()
-ax.plot(dates, highs, c='red')
-ax.plot(dates, lows, c='blue')
+ax.plot(dates, highs, c='red', alpha=0.5) # alpha is the transparency of the line 
+ax.plot(dates, lows, c='blue', alpha=0.5) # alpha is the transparency of the line
+# the fill_between() method fills the space between the two data series with a color that we specify, 
+# it takes the x-values and two y-values
+ax.fill_between(dates, highs, lows, facecolor='blue', alpha=0.1) # alpha is the transparency of the fill
+
 
 # Format plot.
 plt.title("Daily high and low temperatures - 2018", fontsize=24)
