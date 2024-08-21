@@ -42,4 +42,7 @@ fig.autofmt_xdate()
 plt.ylabel("Temperature (F)", fontsize=16)
 plt.tick_params(axis='both', which='major', labelsize=16)
 
+# settings for y-axis scales to match the Death Valley plot
+plt.ylim(10, 120)
+
 plt.show()
