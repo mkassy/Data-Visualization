@@ -3,7 +3,7 @@ from datetime import datetime
 
 import matplotlib.pyplot as plt
 
-filename = 'data/sitka_weather_2018_simple.csv'
+filename = 'data/toronto_weather_2003_simple.csv'
 with open(filename) as f:
     reader = csv.reader(f)
     header_row = next(reader)
@@ -17,12 +17,20 @@ with open(filename) as f:
     # Get dates, and high and low temperatures from this file.
     dates, highs, lows = [], [], []
     for row in reader:
-        current_date = datetime.strptime(row[2], '%Y-%m-%d')
-        high = int(row[6])
-        low = int(row[7])
-        dates.append(current_date)
-        highs.append(high)
-        lows.append(low)
+        current_date = datetime.strptime(row[4], '%Y-%m-%d')
+        try:
+            high_c = float(row[9])
+            low_c = float(row[11])
+
+            # Convert to Fahrenheit
+            high_f = (high_c * 9/5) + 32
+            low_f = (low_c * 9/5) + 32
+        except ValueError:
+            print(f"Missing data for {current_date}")
+        else:
+            dates.append(current_date)
+            highs.append(high_f)
+            lows.append(low_f)
 
 
 # Plot the high and low temperatures.
@@ -36,9 +44,8 @@ ax.fill_between(dates, highs, lows, facecolor='blue', alpha=0.1) # alpha is the 
 
 
 # Format plot.
-title = "Daily high and low temperatures - 2018\nSitka, AK"
+title = "Daily high and low temperatures - 2003\nToronto, ON"
 ax.set_title(title, fontsize=20)
-# plt.title("Daily high and low temperatures - 2018", fontsize=24)
 plt.xlabel('', fontsize=16)
 fig.autofmt_xdate()
 plt.ylabel("Temperature (F)", fontsize=16)
