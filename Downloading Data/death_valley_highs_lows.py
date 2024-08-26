@@ -14,13 +14,23 @@ with open(filename) as f:
     # for index, column_header in enumerate(header_row):
     #     print(index, column_header)
 
+    # Find the indexes for the TMIN, TMAX, and station name columns.
+    date_idx = header_row.index('DATE')
+    tmin_idx= header_row.index('TMIN')
+    tmax_idx= header_row.index('TMAX')
+    station_idx = header_row.index('NAME')
+    
+
     # Get dates, and high and low temperatures from this file.
     dates, highs, lows = [], [], []
-    for row in reader:
-        current_date = datetime.strptime(row[2], '%Y-%m-%d')
+    station_name = ''
+    for row in reader:        
+        current_date = datetime.strptime(row[date_idx], '%Y-%m-%d')
         try:
-            high = int(row[5])
-            low = int(row[6])
+            high = int(row[tmax_idx])
+            low = int(row[tmin_idx])
+            if station_name == '':
+                station_name = row[station_idx] # get the station name
         except ValueError:
             print(f"Missing data for {current_date}")
         else:
@@ -40,7 +50,7 @@ ax.fill_between(dates, highs, lows, facecolor='blue', alpha=0.1) # alpha is the 
 
 
 # Format plot.
-title = "Daily high and low temperatures - 2018\nDeath Valley, CA"
+title = f"Daily high and low temperatures - 2018\n{station_name}"
 ax.set_title(title, fontsize=20)
 plt.xlabel('', fontsize=16)
 fig.autofmt_xdate()
