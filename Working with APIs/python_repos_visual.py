@@ -3,10 +3,49 @@ import requests
 from plotly.graph_objs import Bar
 from plotly import offline
 
+language_dict = {"R": "R",
+                 "python": "Python",
+                 "javascript": "JavaScript",
+                 "Java": "Java",
+                 "C": "C",
+                 "Perl": "Perl",
+                 "Cpp": "C++",
+                 "CSharp": "C#",
+                 "Swift": "Swift",
+                 "Ruby": "Ruby",
+                 "PHP": "PHP",
+                 "Go": "Go",
+                 "Julia": "Julia"}
+
 # Make an API call and store the response.
-title = {'text': 'Most-Starred Python Projects on GitHub', 'x': 0.5, 'xanchor': 'center'}
+# language = 'R'
+# language = 'python'
+# language = 'javascript'
+# language = 'Java'
+# language = 'C'
+# language = 'Perl'
+# language = 'Cpp' # C++
+language = 'CSharp' # C#
+# language = 'Swift'
+# language = 'Ruby'
+# language = 'PHP'
+# language = 'Go'
+# language = 'Julia'
+
+language_title = language_dict[language]
+
+
+title = {
+    'text': f"Most-Starred {language_title} Projects on GitHub",
+    'x': 0.5, 
+    'xanchor': 
+    'center'
+    }
+
+
 url = "https://api.github.com/search/repositories" # here we are using the headers parameter to pass the Accept header to the API
-url += "?q=language:python+sort:stars+stars:>10000"
+# url += "?q=language:python+sort:stars+stars:>10000"
+url += f"?q=language:{language}&sort=stars:>10000"
 # The Accept header tells the API that we want the data in JSON format
 headers = {"Accept": "application/vnd.github.v3+json"}
 # r is the response object that contains the API response
@@ -59,4 +98,4 @@ my_layout = {
 }
 
 fig = {'data': data, 'layout': my_layout}
-offline.plot(fig, filename='python_repos.html')
+offline.plot(fig, filename=f'{language_title}_repos.html')
